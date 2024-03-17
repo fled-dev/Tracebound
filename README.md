@@ -20,7 +20,7 @@
 Sitemaps are fantastic resources, but manually combing through them is tedious. I wanted a quick way to find specific content patterns within a website's structure. Tracebound does just that. It leverages the sitemap to crawl all linked pages efficiently,  hunting for any phrase or keyword I specify. It's been a fun little experiment in focused web crawling!
 
 ### Screenshots
-<a href=""><img src="https://fled.dev/assets/tracebound-demo.png" alt='image' width='300px'></a>
+<a href=""><img src="https://fled.dev/assets/tracebound-demo.png" alt='image' width='700px'></a>
 
 ## Getting Started
 
