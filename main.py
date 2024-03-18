@@ -47,9 +47,9 @@ def scan_page(session, page_url, phrase):
             found_count += 1
             print(colored(f"\rDiscovered in [{found_count}] pages", 'green'), end="")
 
-def verify_log_file(phrase, page_urls):
-    print()
-    print()
+def verify_log_file(phrase):
+    # Soon: Function to verify the log file
+    # For now, just print a success message
     print(colored("Success: All URLs were logged to /"+phrase+".txt", 'blue'))
 
 def scan_website(base_url, phrase):
@@ -65,7 +65,7 @@ def scan_website(base_url, phrase):
         print()
         with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
             executor.map(scan_page, [session]*len(page_urls), page_urls, [phrase]*len(page_urls))
-    verify_log_file(phrase, page_urls)
+    verify_log_file(phrase)
 
 
 scan_website('http://blockchaininsider.org', 'proof')
