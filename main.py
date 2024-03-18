@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import pyfiglet
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 import concurrent.futures
 from termcolor import colored
 import time
