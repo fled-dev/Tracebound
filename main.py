@@ -57,9 +57,6 @@ def scan_website(base_url, phrase):
     session = requests.Session()
     session.headers.update({'User-Agent': 'Tracebound/1.0 Beta (https://tracebound.fled.dev)'})
     all_page_urls = []
-    # Open the log file in write mode to erase its contents
-    with open(f"{phrase}.txt", "w") as file:
-        pass
     for sitemap_url in sitemap_urls:
         print(colored(f"Looking for sitemaps at {sitemap_url}", 'yellow'))
         page_urls = parse_sitemap(session, sitemap_url)
