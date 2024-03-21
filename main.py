@@ -1,15 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-import re
 import pyfiglet
 import defusedxml.ElementTree as ET
-import concurrent.futures
 from termcolor import colored
 import time
 import os
 import socket
 
-DEBUG = True
+DEBUG = False
 WARNINGS = True
 
 class Tracebound:
