@@ -81,15 +81,20 @@ class Tracebound:
     found_count = 0
 
     def scan_page(session, page_url, phrase):
-        global found_count
+        # Check the page for the phrase
         response = session.get(page_url)
         if response.status_code == 200:
-            content = response.content
-            soup = BeautifulSoup(content, 'html.parser')
-            text = soup.get_text()
-            if re.search(phrase, text, re.IGNORECASE):
-                found_count += 1
-                print(colored(f"\rDiscovered in [{found_count}] pages", 'green'), end="")
+            soup = BeautifulSoup(response.content, 'html.parser')
+            if phrase in soup.get_text():
+                Tracebound.found_count += 1
+                print(colored(f"Found the phrase '{phrase}' at {page_url}", 'green'))
+                # Log the URL to a file
+                with open(phrase + ".txt", "a") as log_file:
+                    log_file.write(page_url + "\n")
+            else:
+                print(colored(f"Did not find the phrase '{phrase}' at {page_url}", 'red'))
+        else:
+            print(colored(f"Error: Unable to access {page_url}", 'red'))
 
     def verify_log_file(phrase):
         # Soon: Function to verify the log file
@@ -103,14 +108,13 @@ class Tracebound:
         all_page_urls = []
         for sitemap_url in sitemap_urls:
             print(colored(f"Looking for sitemaps at {sitemap_url}", 'yellow'))
-            page_urls = Tracebound.parse_sitemap(session, sitemap_url)
-            all_page_urls.extend(page_urls)
-            print(colored(f"Found {len(page_urls)} page URLs in the sitemap", 'yellow'))
+            sitemap_content = Tracebound.parse_sitemap(session, sitemap_url)
+            all_page_urls.extend(sitemap_content)
+            print(colored(f"Found [{len(sitemap_content)}] page URLs in the sitemap", 'yellow'))
             print()
-            with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-                executor.map(Tracebound.scan_page, [session]*len(page_urls), page_urls, [phrase]*len(page_urls))
-        Tracebound.verify_log_file(phrase)
-
+            # Create a thread pool to scan the pages
+            for page_url in all_page_urls:
+                Tracebound.scan_page(session, page_url, phrase)
 
 Tracebound.welcome()
 Tracebound.is_online()
