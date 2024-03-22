@@ -18,11 +18,11 @@ class Tracebound:
         time.sleep(1)
 
     def log(message, color):
-        if DEBUG == True:
+        if DEBUG is True:
             print(colored(message, color))
 
     def warning(message):
-        if WARNINGS == True:
+        if WARNINGS is True:
             print(colored(message, 'yellow'))
 
     def is_online(self):
