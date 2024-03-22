@@ -11,7 +11,7 @@ DEBUG = False
 WARNINGS = True
 
 class Tracebound:
-    def welcome():
+    def welcome(self):
         os.system('cls' if os.name == 'nt' else 'clear')
         ascii_logo = pyfiglet.figlet_format("Tracebound v1.0")
         print(ascii_logo)
@@ -25,14 +25,14 @@ class Tracebound:
         if WARNINGS == True:
             print(colored(message, 'yellow'))
 
-    def is_online():
+    def is_online(self):
         try:
             requests.get('https://google.com')
             Tracebound.log("Success: Internet connection is available", 'green')
         except requests.ConnectionError:
             print(colored("Error: No internet connection", 'red'))
         
-    def collect_domain():
+    def collect_domain(self):
         domain = input("Enter the domain you want to scan: ")
         # Check if the domain resolves to an IP address
         try:
@@ -51,7 +51,7 @@ class Tracebound:
                 domain = "http://" + domain
         return domain
 
-    def collect_phrase():
+    def collect_phrase(self):
         phrase = input("Enter the phrase you want to search for: ")
         return phrase
 
