@@ -1,4 +1,5 @@
 # Tracebound - Asynchronous Web Phrase Scanner
+<img width="800" src="/tracebound-banner.png">
 
 ## Overview
 Tracebound is a highly optimized, asynchronous web scanner designed to efficiently search for specific phrases within domain-based web content. It leverages modern concurrency techniques, structured logging, and robust error handling to ensure high performance, scalability, and reliability. The scanner is capable of processing thousands of URLs in parallel while maintaining accuracy and security.
