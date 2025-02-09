@@ -93,14 +93,13 @@ class TraceboundScanner:
         """Fetch a URL with exponential backoff retry."""
         for attempt in range(1, retries + 1):
             try:
-                async with async_timeout.timeout(self.timeout):
-                    async with session.get(url) as response:
-                        if response.status == 200:
-                            self.logger.debug(f"Fetched {url} successfully.")
-                            return await response.text()
-                        else:
-                            self.logger.warning(f"{url} returned status {response.status}")
-                            return ""
+                async with async_timeout.timeout(self.timeout), session.get(url) as response:
+                    if response.status == 200:
+                        self.logger.debug(f"Fetched {url} successfully.")
+                        return await response.text()
+                    else:
+                        self.logger.warning(f"{url} returned status {response.status}")
+                        return ""
             except (aiohttp.ClientError, asyncio.TimeoutError) as e:
                 self.logger.error(f"Attempt {attempt}: Error fetching {url}: {e}")
                 await asyncio.sleep(RETRY_BACKOFF * (2 ** (attempt - 1)))
